@@ -21,5 +21,8 @@ def trainning_process(trainloader, net, device ):
             optimizer.step()
 
             running_loss += loss.item()
-        print(f"Época {epoch}: {running_loss}\n")
+            if i % 100 == 99:  # Print every 100 batches
+                print(f"[Época {epoch + 1}, Lote {i + 1}] Perda média do lote: {running_loss / 100}")
+                running_loss = 0.0  # Reset running_loss for the next set of batches
+
     print('Finished Training')
