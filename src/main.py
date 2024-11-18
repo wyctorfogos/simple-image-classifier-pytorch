@@ -13,11 +13,11 @@ from utils.trainProcess import trainning_and_val_process
 # Nº de classes
 num_classes=10
 # Quantidade de amostras por batch
-batch_size=2
+batch_size=32
 # Quantidade de threads dedicadas ao processamento dos dados inicialmente
 num_workers=8
 # learning rate
-lr=0.01
+lr=1e-4
 # Momentum - Parâmetro do treinamento
 momentum=0.9
 # Número de épocas do treinamento
@@ -37,7 +37,7 @@ val_dataset_loader = dataloader.dataloader(val_dataset, batch_size=batch_size, n
 
 # Importação do modelo
 # net = CNNModel.ClassifierModel(num_classes)
-net = CustomModelWithTransformerEncoder.CustomImageClassifier(num_layers_attention=2, heigth=heigth, width=width, channels=channels, batch_size=batch_size)
+net = CustomModelWithTransformerEncoder.CustomImageClassifier(num_layers_attention=8, mlp_dim=1024, heigth=heigth, width=width, channels=channels, batch_size=batch_size)
 # Caso haja GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 net.to(device)

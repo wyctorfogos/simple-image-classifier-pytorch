@@ -11,7 +11,7 @@ class CustomImageClassifier(nn.Module):
         # Bloco Transformer com múltiplas camadas
         self.transformer_block = TransformerModel.TransformerEncoderBlock(
             img_dim=embed_dim, 
-            num_layers=2,
+            num_layers=num_layers_attention,
             nhead=num_heads,
             dim_feedforward=mlp_dim,
             dropout=dropout
