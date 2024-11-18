@@ -1,14 +1,14 @@
 import torch.nn as nn
 
 class TransformerEncoderBlock(nn.Module):
-    def __init__(self, img_dim, num_layers=2):
+    def __init__(self, img_dim, num_layers=2, nhead=8, dim_feedforward=1024, activation="relu", dropout=0.0):
         super(TransformerEncoderBlock, self).__init__()
         self.num_layers=num_layers
         self.img_dim=img_dim
-        self.nhead=8
-        self.dropout=0.1
-        self.dim_feedforward=512
-        self.activation="relu"
+        self.nhead=nhead
+        self.dropout=dropout
+        self.dim_feedforward=dim_feedforward
+        self.activation=activation
         self.layer_norm_eps=1e-4
         self.batch_first=False
         self.norm_first=False

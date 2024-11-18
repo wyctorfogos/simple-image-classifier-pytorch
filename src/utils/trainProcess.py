@@ -1,9 +1,28 @@
 import torch
 import torch.nn as nn
-import torchvision
-import torchvision.transforms as transforms
 import torch.optim as optim    
 
+
+def net_validation(net, valloader, device, epoch, num_epochs, process_name="validation"):
+    # Validação
+        net.eval()  # Coloca o modelo em modo de avaliação
+        correct = 0
+        total = 0
+        
+        with torch.no_grad():  # Desativa o cálculo do gradiente
+            for data in valloader:
+                inputs, labels = data
+                inputs, labels = inputs.to(device), labels.to(device)
+
+                outputs = net(inputs)  # Passa as entradas pela rede
+                _, predicted = torch.max(outputs.data, 1)  # Obtém as previsões
+                total += labels.size(0)  # Acumula o total de exemplos
+                correct += (predicted == labels).sum().item()  # Acumula acertos
+
+        # Cálculo da precisão de validação
+        accuracy = 100 * correct / total
+        print(f"Época {epoch+1}/{num_epochs}, Precisão de {process_name}: {accuracy:.2f}%\n")
+        
 def trainning_and_val_process(trainloader, valloader, net, device, lr=0.01, momentum=0.9, num_epochs=10):
 
     # Escolha da função Loss e do otimizador
@@ -29,24 +48,9 @@ def trainning_and_val_process(trainloader, valloader, net, device, lr=0.01, mome
         
         # Média da perda durante a época
         print(f"Época {epoch+1}/{num_epochs}, Perda de Treinamento: {running_loss / len(trainloader):.4f}")
-
-        # Validação
-        net.eval()  # Coloca o modelo em modo de avaliação
-        correct = 0
-        total = 0
-        
-        with torch.no_grad():  # Desativa o cálculo do gradiente
-            for data in valloader:
-                inputs, labels = data
-                inputs, labels = inputs.to(device), labels.to(device)
-
-                outputs = net(inputs)  # Passa as entradas pela rede
-                _, predicted = torch.max(outputs.data, 1)  # Obtém as previsões
-                total += labels.size(0)  # Acumula o total de exemplos
-                correct += (predicted == labels).sum().item()  # Acumula acertos
-
-        # Cálculo da precisão de validação
-        accuracy = 100 * correct / total
-        print(f"Época {epoch+1}/{num_epochs}, Precisão de Validação: {accuracy:.2f}%\n")
+        # Verificar precisão do treino
+        net_validation(net, trainloader, device, epoch, num_epochs, process_name="treino")
+        # Verificar precisão da validação
+        net_validation(net, valloader, device, epoch, num_epochs, process_name="validação")
 
     print('Finished Training')
