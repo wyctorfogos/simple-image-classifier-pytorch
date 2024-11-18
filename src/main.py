@@ -22,8 +22,11 @@ val_dataset = torchvision.datasets.FashionMNIST('../dataset', download=True, tra
 train_dataset_loader= dataloader.dataloader(train_dataset, num_workers=6, shuffle=True)
 val_dataset_loader= dataloader.dataloader(val_dataset, num_workers=6, shuffle=False)
 
+# Nº de classes
+num_classes=10
+
 # Importação do modelo
-net = CNNModel.ClassifierModel()
+net = CNNModel.ClassifierModel(num_classes)
 
 # Caso haja GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
