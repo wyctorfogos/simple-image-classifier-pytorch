@@ -4,7 +4,7 @@ import torch.nn as nn
 import torchvision
 from utils import image_transforms_operations
 from utils import dataloader
-from models import CNNModel, CustomModelWithTransformerEncoder, VGG16Model
+from models import CNNModel, CustomModelWithTransformerEncoder, VGG16Model, RESNET18Model
 from utils.trainProcess import trainning_and_val_process
 
 
@@ -40,7 +40,11 @@ val_dataset_loader = dataloader.dataloader(val_dataset, batch_size=batch_size, n
 # Importação do modelo
 # net = CNNModel.ClassifierModel(num_classes) ## Modelo convolucional simples
 # net = CustomModelWithTransformerEncoder.CustomImageClassifier(num_layers_attention=8, mlp_dim=1024, heigth=heigth, width=width, channels=channels, batch_size=batch_size, device=device) ## Modelo com um encoder do transformers
-net = VGG16Model.VGG16Model(num_classes=num_classes, device=device)
+# net = VGG16Model.VGG16Model(num_classes=num_classes, device=device)
+
+net = RESNET18Model.RESNET18Model(num_classes=num_classes, device=device) # Uso do modelo Resnet18
+
+# Carregue o modelo no cpu ou na gpu, caso tenha sido detectada
 net.to(device)
 
 # Processo de treinamento do modelo
