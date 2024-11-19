@@ -25,7 +25,9 @@ num_epochs=5
 # Dimensões das imagens
 heigth=28
 width=28
-channels=1
+channels=3
+# Caso haja GPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Datasets
 train_dataset = torchvision.datasets.FashionMNIST('../dataset', download=True, train=True, transform=image_transforms_operations.image_transforms())
@@ -37,9 +39,8 @@ val_dataset_loader = dataloader.dataloader(val_dataset, batch_size=batch_size, n
 
 # Importação do modelo
 # net = CNNModel.ClassifierModel(num_classes)
-net = CustomModelWithTransformerEncoder.CustomImageClassifier(num_layers_attention=8, mlp_dim=1024, heigth=heigth, width=width, channels=channels, batch_size=batch_size)
-# Caso haja GPU
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+net = CustomModelWithTransformerEncoder.CustomImageClassifier(num_layers_attention=8, mlp_dim=1024, heigth=heigth, width=width, channels=channels, batch_size=batch_size, device=device)
+
 net.to(device)
 
 # Processo de treinamento do modelo

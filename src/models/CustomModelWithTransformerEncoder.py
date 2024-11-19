@@ -4,10 +4,10 @@ from models import TransformerModel
 from models import PatchEmbeed
 
 class CustomImageClassifier(nn.Module):
-    def __init__(self, embed_dim=784, num_heads=8, num_layers_attention=2, mlp_dim=2048, patch_size=14, num_classes=10, dropout=0.2, batch_size=4, channels=3, heigth=224, width=224):
+    def __init__(self, embed_dim=784, num_heads=8, num_layers_attention=2, mlp_dim=2048, patch_size=14, num_classes=10, dropout=0.2, batch_size=4, channels=3, heigth=224, width=224, device="cpu"):
         super().__init__()
 
-        self.patch_embeed_image = PatchEmbeed.ImagePatcher(embed_dim=embed_dim, batch_size= batch_size, patch_size=patch_size, channels=channels, height=heigth, width=width)
+        self.patch_embeed_image = PatchEmbeed.ImagePatcher(embed_dim=embed_dim, batch_size= batch_size, patch_size=patch_size, channels=channels, height=heigth, width=width, device=device)
         # Bloco Transformer com múltiplas camadas
         self.transformer_block = TransformerModel.TransformerEncoderBlock(
             img_dim=embed_dim, 
