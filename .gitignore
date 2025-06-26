@@ -1,2 +1,12 @@
 dataset/*
 results/
+src/models/__pycache__/CNNModel.cpython-311.pyc
+src/models/__pycache__/CustomModelWithTransformerEncoder.cpython-311.pyc
+src/models/__pycache__/PatchEmbeed.cpython-311.pyc
+src/models/__pycache__/RESNET18Model.cpython-311.pyc
+src/models/__pycache__/TransformerModel.cpython-311.pyc
+src/models/__pycache__/VGG16Model.cpython-311.pyc
+src/utils/__pycache__/__init__.cpython-311.pyc
+src/utils/__pycache__/dataloader.cpython-311.pyc
+src/utils/__pycache__/image_transforms_operations.cpython-311.pyc
+src/utils/__pycache__/trainProcess.cpython-311.pyc
